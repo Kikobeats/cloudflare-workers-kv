@@ -1,4 +1,4 @@
-# cloudflare-workers-kv
+# @kikobeats/cloudflare-workers-kv
 
 > Node.js library to interact with [CloudFlare Workers KV](https://developers.cloudflare.com/workers/reference/storage).
 
@@ -17,7 +17,7 @@ $ npm install @kikobeats/cloudflare-workers-kv --save
 The library is a convenient way to interact with CloudFlare Workers KV via usinng [CloudFlare Workers KV API](https://api.cloudflare.com/#workers-kv-namespace-properties).
 
 ```js
-const cloudFlareWorkersKV = require('cloudflare-workers-kv')
+const cloudFlareWorkersKV = require('@kikobeats/cloudflare-workers-kv')
 const ms = require('ms')
 
 const store = cloudFlareWorkersKV({
@@ -47,7 +47,7 @@ async function examples () {
 
 ## License
 
-**cloudflare-workers-kv** © [Kiko Beats](https://kikobeats.com), released under the [MIT](https://github.com/Kikobeats/cloudflare-workers-kv/blob/master/LICENSE.md) License.<br>
+**@kikobeats/cloudflare-workers-kv** © [Kiko Beats](https://kikobeats.com), released under the [MIT](https://github.com/Kikobeats/cloudflare-workers-kv/blob/master/LICENSE.md) License.<br>
 Authored and maintained by [Kiko Beats](https://kikobeats.com) with help from [contributors](https://github.com/Kikobeats/cloudflare-workers-kv/contributors).
 
 > [kikobeats.com](https://kikobeats.com) · GitHub [Kiko Beats](https://github.com/Kikobeats) · Twitter [@Kikobeats](https://twitter.com/Kikobeats)
