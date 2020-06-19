@@ -1,5 +1,5 @@
 {
-  "name": "cloudflare-workers-kv",
+  "name": "@kikobeats/cloudflare-workers-kv",
   "description": "CloudFlare Workers KV storage adapter for Keyv",
   "homepage": "https://nicedoc.io/Kikobeats/cloudflare-workers-kv",
   "version": "1.0.0",
