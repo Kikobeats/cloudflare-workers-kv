@@ -9,7 +9,7 @@ Use it in combination with [CloudFlare Workers](https://workers.cloudflare.com) 
 ## Install
 
 ```bash
-$ npm install cloudflare-workers-kv --save
+$ npm install @kikobeats/cloudflare-workers-kv --save
 ```
 
 ## Usage
