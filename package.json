@@ -1,0 +1,95 @@
+{
+  "name": "cloudflare-workers-kv",
+  "description": "CloudFlare Workers KV storage adapter for Keyv",
+  "homepage": "https://nicedoc.io/Kikobeats/cloudflare-workers-kv",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "author": {
+    "name": "Kiko Beats",
+    "email": "josefrancisco.verdu@gmail.com",
+    "url": "https://kikobeats.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kikobeats/cloudflare-workers-kv.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Kikobeats/cloudflare-workers-kv/issues"
+  },
+  "keywords": [
+    "cache",
+    "cloudflare",
+    "key",
+    "value",
+    "kv",
+    "storage",
+    "store",
+    "ttl",
+    "workers"
+  ],
+  "dependencies": {
+    "got": "~11.3.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "@keyv/test-suite": "latest",
+    "ava": "latest",
+    "conventional-github-releaser": "latest",
+    "coveralls": "latest",
+    "finepack": "latest",
+    "git-authors-cli": "latest",
+    "git-dirty": "latest",
+    "husky": "latest",
+    "keyv": "latest",
+    "lint-staged": "latest",
+    "ms": "latest",
+    "npm-check-updates": "latest",
+    "nyc": "latest",
+    "prettier-standard": "latest",
+    "standard": "latest",
+    "standard-markdown": "latest",
+    "standard-version": "latest"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "scripts": {
+    "clean": "rm -rf node_modules",
+    "contributors": "(git-authors-cli && finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "standard-markdown README.md && standard",
+    "postrelease": "npm run release:tags && npm run release:github && npm publish",
+    "prerelease": "git-dirty && npm run update:check && npm test && npm run contributors",
+    "pretest": "npm run lint",
+    "release": "git-authors-cli finepack && git add package.json && standard-version -a",
+    "release:github": "conventional-github-releaser -p angular",
+    "release:tags": "git push --follow-tags origin master",
+    "test": "exit 0",
+    "update": "ncu -u",
+    "update:check": "ncu -- --error-level 2"
+  },
+  "license": "MIT",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "package.json": [
+      "finepack"
+    ],
+    "*.js": [
+      "prettier-standard"
+    ],
+    "*.md": [
+      "standard-markdown"
+    ]
+  }
+}
