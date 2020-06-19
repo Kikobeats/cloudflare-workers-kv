@@ -5,8 +5,8 @@
   "version": "0.0.1",
   "main": "src/index.js",
   "author": {
-    "name": "Kiko Beats",
     "email": "josefrancisco.verdu@gmail.com",
+    "name": "Kiko Beats",
     "url": "https://kikobeats.com"
   },
   "repository": {
@@ -20,11 +20,11 @@
     "cache",
     "cloudflare",
     "key",
-    "value",
     "kv",
     "storage",
     "store",
     "ttl",
+    "value",
     "workers"
   ],
   "dependencies": {
@@ -35,6 +35,7 @@
     "@commitlint/config-conventional": "latest",
     "@keyv/test-suite": "latest",
     "ava": "latest",
+    "ci-publish": "latest",
     "conventional-github-releaser": "latest",
     "coveralls": "latest",
     "finepack": "latest",
@@ -49,12 +50,14 @@
     "prettier-standard": "latest",
     "standard": "latest",
     "standard-markdown": "latest",
-    "standard-version": "latest",
-    "ci-publish": "latest"
+    "standard-version": "latest"
   },
   "engines": {
     "node": ">= 10"
   },
+  "files": [
+    "src"
+  ],
   "scripts": {
     "clean": "rm -rf node_modules",
     "contributors": "(git-authors-cli && finepack && git add package.json && git commit -m 'build: contributors' --no-verify) || true",
