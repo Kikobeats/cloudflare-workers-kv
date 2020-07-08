@@ -28,7 +28,7 @@
     "workers"
   ],
   "dependencies": {
-    "got": "~11.4.0"
+    "got": "~11.5.0"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",
