@@ -1,5 +1,9 @@
 # @kikobeats/cloudflare-workers-kv
 
+![Last version](https://img.shields.io/github/tag/Kikobeats/cloudflare-workers-kv.svg?style=flat-square)
+[![Coverage Status](https://img.shields.io/coveralls/Kikobeats/cloudflare-workers-kv.svg?style=flat-square)](https://coveralls.io/github/Kikobeats/cloudflare-workers-kv)
+[![NPM Status](https://img.shields.io/npm/dm/@kikobeats/cloudflare-workers-kv.svg?style=flat-square)](https://www.npmjs.org/package/@kikobeats/cloudflare-workers-kv)
+
 > Node.js library to interact with [CloudFlare Workers KV](https://developers.cloudflare.com/workers/reference/storage).
 
 [CloudFlare Workers KV](https://developers.cloudflare.com/workers/reference/storage) is [faster](https://serverless-benchmark.com) &lt;key, value&gt; storage that runs on top of [CloudFlare Network](https://www.cloudflare.com/network) to offer a geo-distributed service almost **free** or reasonable cheaper.
@@ -38,9 +42,6 @@ async function examples () {
 
   // delete a value
   await store.delete('foo')
-
-  // delete all values
-  await store.clear('foo')
 }
 ```
 

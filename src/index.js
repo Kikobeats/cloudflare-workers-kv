@@ -1,6 +1,12 @@
 'use strict'
 
-const got = require('got')
+const fetch = require('isomorphic-fetch')
+
+const throwError = ({ message, code }) => {
+  const error = new Error(`${message}`)
+  error.code = code
+  throw error
+}
 
 const authentication = ({ email, key }) =>
   email
@@ -12,55 +18,47 @@ function CloudFlareWorkersKV (options) {
     return new CloudFlareWorkersKV(options)
   }
 
-  const { accountId, email, key, namespaceId, gotOpts = {} } = options
-  const authHeaders = authentication({ email, key })
+  const { accountId, email, key, namespaceId } = options
+  const auth = authentication({ email, key })
 
-  const _getUrl = (key = '') =>
+  const baseUrl = (key = '') =>
     `https://api.cloudflare.com/client/v4/accounts/${accountId}/storage/kv/namespaces/${namespaceId}/values/${key}`
 
-  const getOpts = (opts = {}, props) => {
-    const headers = { ...opts.headers, ...authHeaders }
-    return { ...gotOpts, ...opts, headers, ...props }
-  }
-
-  const _getAllKeys = opts => {
-    const url = _getUrl().replace('/values/', '/keys')
-    // TODO: get all keys recursively
-    // see https://api.cloudflare.com/#workers-kv-namespace-list-a-namespace-s-keys
-    const searchParams = new URLSearchParams({ limit: 1000 })
-    return got.get(url, getOpts(opts, { searchParams })).json()
-  }
+  const fetchOptions = (opts = {}, props) => ({
+    ...opts,
+    headers: {
+      ...opts.headers,
+      ...auth
+    },
+    ...props
+  })
 
   const get = async (key, opts) => {
-    const url = _getUrl(key)
-    return got.get(url, getOpts(opts)).json()
-  }
-
-  const _delete = async (key, opts = {}) => {
-    const url = _getUrl(key)
-    return got.delete(url, getOpts(opts))
+    const response = await fetch(baseUrl(key), fetchOptions(opts))
+    if (response.status === 404) return undefined
+    return response.json()
   }
 
   const set = async (key, value, ttl, opts = {}) => {
-    const url = _getUrl(key)
-    const searchParams = ttl
-      ? new URLSearchParams({ expiration_ttl: ttl / 1000 })
-      : undefined
-    return got.put(url, getOpts(opts, { json: value, searchParams }))
+    const url = baseUrl(key)
+    const searchParams = new URLSearchParams(
+      ttl ? { expiration_ttl: ttl / 1000 } : {}
+    )
+
+    const { success, errors } = await fetch(
+      `${url}?${searchParams.toString()}`,
+      fetchOptions(opts, { body: JSON.stringify(value), method: 'PUT' })
+    ).then(res => res.json())
+
+    return success || throwError(errors[0])
   }
 
-  const clear = async (opts = {}) => {
-    const keys = await _getAllKeys(opts)
-    const url = _getUrl().replace('/values/', '/bulk')
-    return got.delete(url, getOpts(opts, { json: keys }))
+  const _delete = async (key, opts) => {
+    await fetch(baseUrl(key), fetchOptions(opts, { method: 'DELETE' }))
+    return true
   }
 
-  return {
-    get,
-    set,
-    clear,
-    delete: _delete
-  }
+  return { get, set, delete: _delete }
 }
 
 module.exports = CloudFlareWorkersKV
