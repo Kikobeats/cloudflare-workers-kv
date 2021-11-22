@@ -22,7 +22,6 @@ const ms = require('ms')
 
 const store = cloudFlareWorkersKV({
   accountId: '<Cloudflare-Account-Id>',
-  email: '<Cloudflare-Email>',
   key: '<Cloudflare-API-Key>',
   namespaceId: '<Cloudflare-Workers-KV-Namespace-Id>'
 })
@@ -44,6 +43,14 @@ async function examples () {
   await store.clear('foo')
 }
 ```
+
+## Authentication
+
+At CloudFlare dashboard, enter to `Your Profile` > `API Token` > `Create Token`.
+
+Then use `CloudFlare Workers` template and ensure at least the permission `Workers KV Storage` is present.
+
+The API token provided should be provided as `key`.
 
 ## License
 

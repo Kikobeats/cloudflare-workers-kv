@@ -2,10 +2,10 @@
 
 const got = require('got')
 
-const getHeaders = ({ email, key }) => ({
-  'X-Auth-Email': email,
-  'X-Auth-Key': key
-})
+const authentication = ({ email, key }) =>
+  email
+    ? { 'X-Auth-Email': email, 'X-Auth-Key': key }
+    : { Authorization: `Bearer ${key}` }
 
 function CloudFlareWorkersKV (options) {
   if (!(this instanceof CloudFlareWorkersKV)) {
@@ -13,7 +13,7 @@ function CloudFlareWorkersKV (options) {
   }
 
   const { accountId, email, key, namespaceId, gotOpts = {} } = options
-  const authHeaders = getHeaders({ email, key })
+  const authHeaders = authentication({ email, key })
 
   const _getUrl = (key = '') =>
     `https://api.cloudflare.com/client/v4/accounts/${accountId}/storage/kv/namespaces/${namespaceId}/values/${key}`
