@@ -35,7 +35,7 @@ async function examples () {
   await store.get('foo')
 
   // set a value forever
-  await store.set('foo', 'bar', ms('5m'))
+  await store.set('foo', 'bar')
 
   // set a value associating with a time-to-live associated
   await store.set('foo', 'bar', ms('5m'))
