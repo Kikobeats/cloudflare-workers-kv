@@ -1,6 +1,6 @@
 'use strict'
 
-const fetch = require('isomorphic-fetch')
+const fetch = require('isomorphic-unfetch')
 
 const throwError = ({ message, code }) => {
   const error = new Error(`${message}`)
