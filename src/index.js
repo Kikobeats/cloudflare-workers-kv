@@ -47,7 +47,10 @@ function CloudFlareWorkersKV (options) {
 
     const { success, errors } = await fetch(
       `${url}?${searchParams.toString()}`,
-      fetchOptions(opts, { body: JSON.stringify(value), method: 'PUT' })
+      fetchOptions(opts, {
+        body: typeof value === 'string' ? value : JSON.stringify(value),
+        method: 'PUT'
+      })
     ).then(res => res.json())
 
     return success || throwError(errors[0])
