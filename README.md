@@ -6,6 +6,8 @@
 
 > Node.js library to interact with [CloudFlare Workers KV](https://developers.cloudflare.com/workers/reference/storage).
 
+**Deprecation note**: this library uses [CloudFlare REST API](https://developers.cloudflare.com/pages/platform/api) that is slow. You should to use [runtime API](https://developers.cloudflare.com/workers/runtime-apis/kv/) to interact the most optimal way.
+
 [CloudFlare Workers KV](https://developers.cloudflare.com/workers/reference/storage) is [faster](https://serverless-benchmark.com) &lt;key, value&gt; storage that runs on top of [CloudFlare Network](https://www.cloudflare.com/network) to offer a geo-distributed service almost **free** or reasonable cheaper.
 
 Use it in combination with [CloudFlare Workers](https://workers.cloudflare.com) or [AWS Lambda](https://aws.amazon.com/lambda) to have a truly [serverless database access](https://medium.com/@tjholowaychuk/global-serverless-apps-with-aws-lambda-api-gateway-4642ef1f221d), where the value will be serve from the nearest edge node, being the lowest response latency possible.
